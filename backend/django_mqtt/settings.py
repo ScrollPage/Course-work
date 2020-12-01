@@ -88,6 +88,13 @@ WSGI_APPLICATION = 'django_mqtt.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -120,7 +127,6 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # REST FRAMEWORK
 REST_FRAMEWORK = {
-    'EXCEPTION_HANDLER': 'backend.service.exception_handler',
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.TokenAuthentication',

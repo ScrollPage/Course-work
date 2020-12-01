@@ -17,7 +17,7 @@ export const authSignup = (
       password,
     })
     .then(() => {
-      dispatch(authLogin(email, password));
+      dispatch(show('Вы успешно создали аккаунт, войдите!', 'success'));
     })
     .catch(() => {
       dispatch(show('Пользователь с такими данными уже существует!', 'warning'));
@@ -38,8 +38,8 @@ export const authLogin = (userName: string, password: string): ThunkType => asyn
       Cookie.set('expirationDate', expirationDate);
 
       dispatch(checkAuthTimeout(24 * 3600 * 1000));
-      dispatch(show('Вы успешно вошли!', 'success'));
       Router.push({ pathname: '/' }, undefined, { shallow: true });
+      dispatch(show('Вы успешно вошли!', 'success'));
     })
     .catch(() => {
       dispatch(show('Неверный логин или пароль, перепроверьте данные!', 'warning'));

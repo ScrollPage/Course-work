@@ -1,13 +1,12 @@
 import { Layout } from '@/components/Layout';
-import { show } from '@/store/actions/alert';
-import { Button, Flex, Heading } from '@chakra-ui/react';
+import { Flex, Heading } from '@chakra-ui/react';
+import { GetServerSideProps } from 'next';
 import useTranslation from 'next-translate/useTranslation';
-import { useDispatch } from 'react-redux';
 
-const Index = () => {
+interface IndexProps {}
+
+const Index = ({}: IndexProps) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
-
   return (
     <Layout>
       <Flex
@@ -17,14 +16,17 @@ const Index = () => {
         height="80vh"
       >
         <Heading textAlign="center">{t('home:home-page')}</Heading>
-        <Button
-          onClick={() => dispatch(show('Ваш аккаунт подтвержден!', 'success'))}
-        >
-          Alert
-        </Button>
       </Flex>
     </Layout>
   );
 };
 
 export default Index;
+
+export const getServerSideProps: GetServerSideProps<IndexProps> = async (
+  ctx
+) => {
+  return {
+    props: {},
+  };
+};

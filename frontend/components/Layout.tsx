@@ -7,9 +7,9 @@ interface LayoutProps {
   children: JSX.Element;
 }
 
-export const Layout = ({ children }: LayoutProps) => {
+export const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <Container height="100vh">
+    <Container height="full">
       <Header />
       <ChakraContainer maxW="xl" height="full" mt="120px">
         {children}

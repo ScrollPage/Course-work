@@ -3,8 +3,11 @@ import { RegisterForm } from '../components/RegisterForm';
 import Link from 'next/link';
 import { Layout } from '@/components/Layout';
 import useTranslation from 'next-translate/useTranslation';
+import { GetServerSideProps } from 'next';
 
-const Register = () => {
+interface RegisterProps {}
+
+const Register = ({}: RegisterProps) => {
   const { t } = useTranslation();
 
   return (
@@ -16,6 +19,7 @@ const Register = () => {
         height="full"
       >
         <Box
+          mt="70px"
           width="500px"
           borderWidth={1}
           boxShadow="xl"
@@ -40,3 +44,11 @@ const Register = () => {
 };
 
 export default Register;
+
+export const getServerSideProps: GetServerSideProps<RegisterProps> = async (
+  ctx
+) => {
+  return {
+    props: {},
+  };
+};

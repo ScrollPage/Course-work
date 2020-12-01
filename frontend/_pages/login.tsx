@@ -3,8 +3,11 @@ import { LoginForm } from '../components/LoginForm';
 import Link from 'next/link';
 import { Layout } from '@/components/Layout';
 import useTranslation from 'next-translate/useTranslation';
+import { GetServerSideProps } from 'next';
 
-const Login = () => {
+interface LoginProps {}
+
+const Login = ({}: LoginProps) => {
   const { t } = useTranslation();
   return (
     <Layout>
@@ -15,6 +18,7 @@ const Login = () => {
         height="full"
       >
         <Box
+          mt="70px"
           width="500px"
           borderWidth={1}
           boxShadow="xl"
@@ -41,3 +45,11 @@ const Login = () => {
 };
 
 export default Login;
+
+export const getServerSideProps: GetServerSideProps<LoginProps> = async (
+  ctx
+) => {
+  return {
+    props: {},
+  };
+};

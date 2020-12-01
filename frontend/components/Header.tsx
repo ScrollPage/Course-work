@@ -13,11 +13,23 @@ import Image from 'next/image';
 import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
 import { useColor } from '@/hooks/useColor';
+// import { MyDrawer } from './Drawer';
+import { useDispatch } from 'react-redux';
+import { logout } from '@/store/actions/auth';
+import { useUser } from '@/hooks/useUser';
 
-export const Header = () => {
+interface HeaderProps {}
+
+export const Header: React.FC<HeaderProps> = ({}) => {
   const { t } = useTranslation();
   const { pathname } = useRouter();
   const { bg, cl } = useColor();
+  const dispatch = useDispatch();
+  const { isAuth, userName } = useUser();
+
+  const logoutHandler = () => {
+    dispatch(logout());
+  };
 
   return (
     <Box
@@ -29,7 +41,11 @@ export const Header = () => {
     >
       <Box bg="#000" py="2">
         <Container maxW="xl" height="full">
-          <Flex justifyContent="space-between" alignItems="center">
+          <Flex
+            justifyContent="space-between"
+            alignItems="center"
+            direction="row"
+          >
             <Flex alignItems="center">
               <Image src="/logo.svg" alt="Logo" width={29} height={29} />
               <Text ml="2" color="white">
@@ -58,33 +74,59 @@ export const Header = () => {
                 </Link>
               </Box>
             </Flex>
-            <Text color="white">{t('common:all-right-reserved')} &#10004;</Text>
+            <Text display={['none', 'flex']} color="white">
+              {t('common:all-right-reserved')} &#10004;
+            </Text>
           </Flex>
         </Container>
       </Box>
       <Box bg={bg} color={cl}>
         <Container maxW="xl" height="full">
-          <Flex flexDirection="row" justifyContent="space-between" py="5">
-            <Box>
+          <Flex
+            justifyContent="space-between"
+            alignItems="center"
+            py="5"
+            direction={['column', 'row', 'row']}
+          >
+            <Flex>
               <Link href="/">
                 <ChakraLink>
-                  <Heading size="md">{t('common:home')}</Heading>
-                </ChakraLink>
-              </Link>
-            </Box>
-            <Flex>
-              <Link href="/register">
-                <ChakraLink>
                   <Heading size="md" mr="5">
-                    {t('common:sign-up')}
+                    {t('common:home')}
                   </Heading>
                 </ChakraLink>
               </Link>
-              <Link href="/login">
-                <ChakraLink>
-                  <Heading size="md">{t('common:log-in')}</Heading>
+              {isAuth && (
+                <Link href="/">
+                  <ChakraLink>
+                    <Heading size="md">{t('common:data')}</Heading>
+                  </ChakraLink>
+                </Link>
+              )}
+            </Flex>
+            <Flex>
+              {isAuth ? (
+                <ChakraLink onClick={logoutHandler}>
+                  <Heading size="md" mr="5">
+                    {t('common:log-out')}
+                  </Heading>
                 </ChakraLink>
-              </Link>
+              ) : (
+                <>
+                  <Link href="/register">
+                    <ChakraLink>
+                      <Heading size="md" mr="5">
+                        {t('common:sign-up')}
+                      </Heading>
+                    </ChakraLink>
+                  </Link>
+                  <Link href="/login">
+                    <ChakraLink>
+                      <Heading size="md">{t('common:log-in')}</Heading>
+                    </ChakraLink>
+                  </Link>{' '}
+                </>
+              )}
               <Box ml="5">
                 <DarkModeSwitch />
               </Box>

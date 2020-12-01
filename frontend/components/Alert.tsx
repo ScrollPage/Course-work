@@ -6,7 +6,16 @@ import {
   getAlertText,
   getAlertType,
 } from '@/store/selectors';
-import { Box, Text, Button } from '@chakra-ui/react';
+import {
+  Alert as ChackraAlert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+  Box,
+  Text,
+  Button,
+  CloseButton,
+} from '@chakra-ui/react';
 
 const Alert: React.FC = () => {
   const text = useSelector(getAlertText);
@@ -31,10 +40,24 @@ const Alert: React.FC = () => {
   if (!text) return null;
 
   return (
-    <Box>
-      {/* <AntdAlert message={text} type={type} closable onClose={hideHandler} /> */}
-      <Text>{text}</Text>
-      <Button onClose={hideHandler}>Close</Button>
+    <Box
+      position="fixed"
+      top="0"
+      left="0"
+      right="0"
+      zIndex="10"
+      height="50.6px"
+    >
+      <ChackraAlert status={type} height="full">
+        <AlertIcon />
+        <AlertTitle mr={2}>{text}</AlertTitle>
+        <CloseButton
+          position="absolute"
+          right="8px"
+          top="8px"
+          onClick={hideHandler}
+        />
+      </ChackraAlert>
     </Box>
   );
 };

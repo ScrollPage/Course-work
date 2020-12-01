@@ -5,6 +5,7 @@ export const Container = (props: FlexProps) => {
   const { bg, cl } = useColor();
   return (
     <Flex
+      minHeight="100vh"
       direction="column"
       alignItems="center"
       justifyContent="flex-start"

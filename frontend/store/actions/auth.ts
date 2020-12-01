@@ -33,7 +33,7 @@ export const authLogin = (userName: string, password: string): ThunkType => asyn
     .then(res => {
       const expirationDate = new Date(new Date().getTime() + 24 * 3600 * 1000);
 
-      Cookie.set('userName', res.data.userName);
+      Cookie.set('userName', userName);
       Cookie.set('token', res.data.access);
       Cookie.set('expirationDate', expirationDate);
 

@@ -7,21 +7,36 @@ import {
   DrawerOverlay,
   DrawerContent,
   DrawerCloseButton,
-  Button,
-  Input,
   useDisclosure,
+  Box,
+  Flex,
+  Heading,
+  Link as ChakraLink,
 } from '@chakra-ui/react';
+import Image from 'next/image';
+import Link from 'next/link';
+import useTranslation from 'next-translate/useTranslation';
+import { useUser } from '@/hooks/useUser';
+import { useDispatch } from 'react-redux';
+import { logout } from '@/store/actions/auth';
 
 export const MyDrawer = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { t } = useTranslation();
+  const { isAuth } = useUser();
+  const dispatch = useDispatch();
+
+  const logoutHandler = () => {
+    dispatch(logout());
+  };
   // @ts-ignore
   const btnRef = React.useRef<FocusableElement | null>();
 
   return (
     <>
-      <Button ref={btnRef} colorScheme="teal" onClick={onOpen}>
-        Open
-      </Button>
+      <Box ref={btnRef} onClick={onOpen}>
+        <Image src="/list.svg" alt="menu" width={25} height={25} />
+      </Box>
       <Drawer
         isOpen={isOpen}
         placement="right"
@@ -31,17 +46,53 @@ export const MyDrawer = () => {
         <DrawerOverlay>
           <DrawerContent>
             <DrawerCloseButton />
-            <DrawerHeader>Create your account</DrawerHeader>
-
+            <DrawerHeader>{t('common:s-superiority')}</DrawerHeader>
             <DrawerBody>
-              <Input placeholder="Type here..." />
+              <Flex direction="column" w="full" alignItems="center" mt="10">
+                <Box py="3">
+                  <Link href="/">
+                    <ChakraLink>
+                      <Heading size="md">{t('common:home')}</Heading>
+                    </ChakraLink>
+                  </Link>
+                </Box>
+                {isAuth && (
+                  <Box py="3">
+                    <Link href="/data">
+                      <ChakraLink>
+                        <Heading size="md">{t('common:data')}</Heading>
+                      </ChakraLink>
+                    </Link>
+                  </Box>
+                )}
+              </Flex>
             </DrawerBody>
 
             <DrawerFooter>
-              <Button variant="outline" mr={3} onClick={onClose}>
-                Cancel
-              </Button>
-              <Button color="blue">Save</Button>
+              <Flex direction="row" justifyContent="center" width="full">
+                {isAuth ? (
+                  <ChakraLink onClick={logoutHandler}>
+                    <Heading size="md" mx="5">
+                      {t('common:log-out')}
+                    </Heading>
+                  </ChakraLink>
+                ) : (
+                  <>
+                    <Link href="/register">
+                      <ChakraLink>
+                        <Heading size="md" mr="5">
+                          {t('common:sign-up')}
+                        </Heading>
+                      </ChakraLink>
+                    </Link>
+                    <Link href="/login">
+                      <ChakraLink>
+                        <Heading size="md">{t('common:log-in')}</Heading>
+                      </ChakraLink>
+                    </Link>
+                  </>
+                )}
+              </Flex>
             </DrawerFooter>
           </DrawerContent>
         </DrawerOverlay>

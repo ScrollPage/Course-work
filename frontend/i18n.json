@@ -9,6 +9,7 @@
     "/": ["home"],
     "/404": ["error"],
     "/login": ["login"],
-    "/register": ["register"]
+    "/register": ["register"],
+    "/data": ["data"]
   }
 }

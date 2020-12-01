@@ -13,7 +13,7 @@ import Image from 'next/image';
 import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
 import { useColor } from '@/hooks/useColor';
-// import { MyDrawer } from './Drawer';
+import { MyDrawer } from './Drawer';
 import { useDispatch } from 'react-redux';
 import { logout } from '@/store/actions/auth';
 import { useUser } from '@/hooks/useUser';
@@ -83,10 +83,29 @@ export const Header: React.FC<HeaderProps> = ({}) => {
       <Box bg={bg} color={cl}>
         <Container maxW="xl" height="full">
           <Flex
+            display={['flex', 'none', 'none']}
+            py="5"
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            {userName && (
+              <Flex>
+                <Box mr="1">
+                  <Image src="/man.svg" alt="Russia" width={25} height={25} />
+                </Box>
+                <Heading size="md" mr="5">
+                  {userName}
+                </Heading>
+              </Flex>
+            )}
+            <MyDrawer />
+          </Flex>
+          <Flex
             justifyContent="space-between"
             alignItems="center"
             py="5"
             direction={['column', 'row', 'row']}
+            display={['none', 'flex', 'flex']}
           >
             <Flex>
               <Link href="/">
@@ -97,7 +116,7 @@ export const Header: React.FC<HeaderProps> = ({}) => {
                 </ChakraLink>
               </Link>
               {isAuth && (
-                <Link href="/">
+                <Link href="/data">
                   <ChakraLink>
                     <Heading size="md">{t('common:data')}</Heading>
                   </ChakraLink>
@@ -106,13 +125,29 @@ export const Header: React.FC<HeaderProps> = ({}) => {
             </Flex>
             <Flex>
               {isAuth ? (
-                <ChakraLink onClick={logoutHandler}>
-                  <Heading size="md" mr="5">
-                    {t('common:log-out')}
-                  </Heading>
-                </ChakraLink>
+                <Flex>
+                  <Flex>
+                    <Box mr="1">
+                      <Image
+                        src="/man.svg"
+                        alt="Russia"
+                        width={25}
+                        height={25}
+                      />
+                    </Box>
+                    <Heading size="md" mr="5">
+                      {userName}
+                    </Heading>
+                  </Flex>
+                  <Heading size="md">|</Heading>
+                  <ChakraLink onClick={logoutHandler}>
+                    <Heading size="md" mx="5">
+                      {t('common:log-out')}
+                    </Heading>
+                  </ChakraLink>
+                </Flex>
               ) : (
-                <>
+                <Flex>
                   <Link href="/register">
                     <ChakraLink>
                       <Heading size="md" mr="5">
@@ -125,7 +160,7 @@ export const Header: React.FC<HeaderProps> = ({}) => {
                       <Heading size="md">{t('common:log-in')}</Heading>
                     </ChakraLink>
                   </Link>{' '}
-                </>
+                </Flex>
               )}
               <Box ml="5">
                 <DarkModeSwitch />

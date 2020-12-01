@@ -9,7 +9,7 @@ from detector.models import Detector, DetectorData
 
 class DetectorsViewSet(PermissionSerializerListCreateViewSet):
     '''
-    Вывод собственных дачиков
+    Вывод собственных датчиков
     Создание нового датчика
     Вывод информации с датчиков
     '''
@@ -45,6 +45,3 @@ class DetectorsViewSet(PermissionSerializerListCreateViewSet):
         data = detector.data.all()
         serializer = self.get_serializer(data, many=True)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
-
-
-    

@@ -11,6 +11,11 @@ import theme from '../theme';
 import { DefaultSeo } from 'next-seo';
 import SEO from '../next-seo.config';
 import { Router } from 'next/router';
+import { createWrapper } from 'next-redux-wrapper';
+import { Provider } from 'react-redux';
+import Cookie from 'js-cookie';
+import store from '@/store/store';
+import Alert from '@/components/Alert';
 
 NProgress.configure({
   showSpinner: false,
@@ -46,14 +51,17 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
                 baseURL: process.env.DB_HOST,
                 headers: {
                   'Content-Type': 'application/json',
-                  Authorization: `Token token`,
+                  Authorization: `Token ${Cookie.get('token')}`,
                 },
               }).then((r) => r.data),
           }}
         >
-          <ChakraProvider resetCSS theme={theme}>
-            <Component {...pageProps} />
-          </ChakraProvider>
+          <Provider store={store}>
+            <ChakraProvider resetCSS theme={theme}>
+              <Alert />
+              <Component {...pageProps} />
+            </ChakraProvider>
+          </Provider>
         </SWRConfig>
       </>
     </>
@@ -66,7 +74,10 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
   };
 };
 
-export default MyApp;
+const makestore = () => store;
+const wrapper = createWrapper(makestore);
+
+export default wrapper.withRedux(MyApp);
 
 const GlobalStyle = createGlobalStyle`
   ${normalize}

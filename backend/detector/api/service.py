@@ -1,5 +1,7 @@
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.mixins import ListModelMixin, CreateModelMixin
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.response import Response
 
 class PermissionMixin:
     '''Mixin permission для action'''
@@ -17,14 +19,20 @@ class SerializerMixin:
         except KeyError:
             return self.serializer_class
 
-class PermissionSerializerListCreateViewSet(SerializerMixin,
-                                            ListModelMixin,
-                                            CreateModelMixin,
-                                            GenericViewSet
-                                        ):
+class ListCreateViewSet(ListModelMixin,
+                        CreateModelMixin,
+                        GenericViewSet
+                    ):
     '''
     Переопределение определения сериализатора и прав доступа
     Создание и список
     Базовые функции вью-сета
     '''
     pass
+
+class PaginationData(PageNumberPagination):
+    page_size = 20
+    max_page_size = 1000
+
+    def get_paginated_response(self, data):
+        return Response(data)

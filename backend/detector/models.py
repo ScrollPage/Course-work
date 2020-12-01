@@ -43,7 +43,7 @@ class DetectorData(models.Model):
     humidity = models.DecimalField('Влажность', max_digits=4, decimal_places=2)
     lightning = models.DecimalField('Освещенность', max_digits=4, decimal_places=2)
     pH = models.DecimalField('Кислотность', max_digits=4, decimal_places=2)
-    timestamp = models.DateField('Дата сбора данных', auto_now_add=True)
+    timestamp = models.DateTimeField('Дата сбора данных', auto_now_add=True)
     anomaly = models.BooleanField('Аномалия', default=False)
 
     def __str__(self):

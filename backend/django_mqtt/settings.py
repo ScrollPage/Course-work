@@ -9,8 +9,10 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
+
 import os
 from pathlib import Path
+from datetime import timedelta
 
 # if __name__ == "__main__":
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "django_mqtt.settings")
@@ -41,6 +43,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'corsheaders',
+    'djoser',
+    'drf_yasg',
     'silk',
 
     'detector',
@@ -150,3 +155,40 @@ MQTT_CONFIG = {
 # Limits
 LOWER_DETECTOR_DATA_LIMIT = 0.00
 HIGHER_DETECTOR_DATA_LIMIT = 10.00
+
+#JWT Authentication
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': True,
+
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
+    'VERIFYING_KEY': None,
+    'AUDIENCE': None,
+    'ISSUER': None,
+
+    'AUTH_HEADER_TYPES': ('Token',),
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
+
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    'TOKEN_TYPE_CLAIM': 'token_type',
+
+    'JTI_CLAIM': 'jti',
+
+    'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
+    'SLIDING_TOKEN_LIFETIME': timedelta(days=1),
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
+}
+
+#Domains
+DJANGO_DOMAIN = 'http://127.0.0.1:8000'
+REACT_DOMAIN = 'http://127.0.0.1:3000'
+
+# CORS
+CORS_ORIGIN_WHITELIST = (
+    u'http://127.0.0.1:3000',
+    u'http://localhost:3000'
+)

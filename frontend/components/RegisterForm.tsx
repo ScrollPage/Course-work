@@ -4,30 +4,28 @@ import React from 'react';
 import { MyField } from './MyField';
 import { object, string, ref } from 'yup';
 import useTranslation from 'next-translate/useTranslation';
+import { useDispatch } from 'react-redux';
+import { authSignup } from '@/store/actions/auth';
 
 interface FormValues {
   email: string;
-  firstName: string;
-  lastName: string;
+  userName: string;
   password: string;
   confirmPassword: string;
 }
 
 export const RegisterForm = () => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
 
   const validationSchema = object().shape({
     email: string()
       .email(t('register:incorrect-email-adress'))
       .required(t('register:enter-your-email-adress')),
-    firstName: string()
-      .min(3, t('register:very-short-firstname'))
-      .max(15, t('register:very-long-firstname'))
-      .required(t('register:enter-your-firstname')),
-    lastName: string()
-      .min(3, t('register:very-short-lastname'))
-      .max(15, t('register:very-long-lastname'))
-      .required(t('register:enter-your-lastname')),
+    userName: string()
+      .min(3, t('register:very-short-username'))
+      .max(15, t('register:very-long-username'))
+      .required(t('register:enter-your-username')),
     password: string()
       .matches(
         // @ts-ignore: Unreachable code error
@@ -45,15 +43,16 @@ export const RegisterForm = () => {
       <Formik
         initialValues={{
           email: '',
-          firstName: '',
-          lastName: '',
+          userName: '',
           password: '',
           confirmPassword: '',
         }}
         validationSchema={validationSchema}
-        onSubmit={(values, { setSubmitting, resetForm }) => {
+        onSubmit={async (values, { setSubmitting, resetForm }) => {
           setSubmitting(true);
-          // await dispatch(authLogin(values.email, values.password, true));
+          await dispatch(
+            authSignup(values.email, values.userName, values.password)
+          );
           setTimeout(() => {
             console.log(values);
             setSubmitting(false);
@@ -72,17 +71,10 @@ export const RegisterForm = () => {
             />
             <MyField
               size="sm"
-              label={t('register:first-name')}
+              label={t('register:username')}
               name="firstName"
               type="text"
-              placeholder={t('register:enter-your-firstname')}
-            />
-            <MyField
-              size="sm"
-              label={t('register:last-name')}
-              name="lastName"
-              type="text"
-              placeholder={t('register:enter-your-lastname')}
+              placeholder={t('register:enter-your-username')}
             />
             <MyField
               size="sm"

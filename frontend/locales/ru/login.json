@@ -1,11 +1,10 @@
 {
   "login": "Войти",
   "or-create-account-now": "или создайте аккаунт",
-  "email-adress": "Email:",
+  "username": "Имя:",
   "password": "Пароль:",
-  "enter-your-email-adress": "Введите email",
+  "enter-your-username": "Введите имя",
   "enter-your-password": "Введите пароль",
-  "incorrect-email-adress": "Некорректный email",
   "very-easy-password": "Очень легкий пароль",
   "submit": "Подтвердить"
 }

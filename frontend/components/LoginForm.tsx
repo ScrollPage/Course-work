@@ -4,19 +4,20 @@ import React from 'react';
 import { MyField } from './MyField';
 import { object, string } from 'yup';
 import useTranslation from 'next-translate/useTranslation';
+import { useDispatch } from 'react-redux';
+import { authLogin } from '@/store/actions/auth';
 
 interface FormValues {
-  email: string;
+  userName: string;
   password: string;
 }
 
 export const LoginForm = () => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
 
   const validationSchema = object().shape({
-    email: string()
-      .email(t('login:incorrect-email-adress'))
-      .required(t('login:enter-your-email-adress')),
+    userName: string().required(t('login:enter-your-username')),
     password: string()
       .matches(
         // @ts-ignore: Unreachable code error
@@ -30,28 +31,26 @@ export const LoginForm = () => {
     <Box width="full">
       <Formik
         initialValues={{
-          email: '',
+          userName: '',
           password: '',
         }}
         validationSchema={validationSchema}
-        onSubmit={(values, { setSubmitting, resetForm }) => {
+        onSubmit={async (values, { setSubmitting, resetForm }) => {
           setSubmitting(true);
-          // await dispatch(authLogin(values.email, values.password, true));
-          setTimeout(() => {
-            console.log(values);
-            setSubmitting(false);
-            resetForm();
-          }, 2000);
+          await dispatch(authLogin(values.userName, values.password));
+          console.log(values);
+          setSubmitting(false);
+          resetForm();
         }}
       >
         {(props: FormikProps<FormValues>) => (
           <Form>
             <MyField
               size="lg"
-              label={t('login:email-adress')}
-              name="email"
-              type="email"
-              placeholder={t('login:enter-your-email-adress')}
+              label={t('login:username')}
+              name="userName"
+              type="text"
+              placeholder={t('login:enter-your-username')}
             />
             <MyField
               size="lg"

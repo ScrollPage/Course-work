@@ -84,7 +84,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'django_mqtt.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
@@ -117,6 +116,17 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+# REST FRAMEWORK
+REST_FRAMEWORK = {
+    'EXCEPTION_HANDLER': 'backend.service.exception_handler',
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+}
 
 
 # Internationalization
@@ -191,8 +201,8 @@ REACT_DOMAIN = 'http://127.0.0.1:3000'
 
 # CORS
 CORS_ORIGIN_WHITELIST = (
-    u'http://127.0.0.1:3000/',
-    u'http://localhost:3000/'
+    u'http://127.0.0.1:3000',
+    u'http://localhost:3000'
 )
 
 # CORS_ORIGIN_ALLOW_ALL = True

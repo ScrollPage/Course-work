@@ -1,22 +1,12 @@
-from rest_framework.urlpatterns import format_suffix_patterns
+from rest_framework.routers import DefaultRouter
 from django.urls import path
 
-from .views import DetectorsViewSet
+from .views import DetectorsViewSet, DetectorDataListView
 
 urlpatterns = [
-    
+    path('detector/<int:pk>/', DetectorDataListView.as_view(), name='detector-data')
 ]
 
-detectors = DetectorsViewSet.as_view({
-    'get': 'list',
-    'post': 'create'
-})
-
-detectors_data = DetectorsViewSet.as_view({
-    'get': 'get_data'
-})
-
-urlpatterns += format_suffix_patterns([
-    path('detectors/', detectors, name='detectors'),
-    path('detectors/<int:pk>/', detectors_data, name='detectors-data')
-])
+r = DefaultRouter()
+r.register('detector', DetectorsViewSet, basename='detector')
+urlpatterns += r.urls

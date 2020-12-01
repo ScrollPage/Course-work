@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'djoser',
     'drf_yasg',
+    'rest_auth',
+    'rest_framework',
     'silk',
 
     'detector',

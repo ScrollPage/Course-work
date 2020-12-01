@@ -2,13 +2,20 @@ from rest_framework import serializers
 
 from detector.models import Detector, DetectorData
 
-class UserSerializer
-
-class DetectorSerializier(serializers.ModelSerializer):
+class DetectorSerializer(serializers.ModelSerializer):
     '''
     Сериализация и создание датчика
     '''
-serializers.
+
     class Meta:
         model = Detector
         exclude = ['user']
+
+class DetectorDataSerializer(serializers.ModelSerializer):
+    '''
+    Сериализация данных датчиков 
+    '''
+
+    class Meta:
+        model = DetectorData
+        exclude = ['detector', 'anomaly']

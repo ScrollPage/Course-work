@@ -46,7 +46,7 @@ export const authLogin = (userName: string, password: string): ThunkType => asyn
     });
 };
 
-export const logout = (): ThunkType => dispatch => {
+export const logout = (): ThunkType => () => {
   Router.push({ pathname: '/' }, undefined, { shallow: true });
   Cookie.remove('token');
   Cookie.remove('expirationDate');
@@ -88,7 +88,7 @@ export const authCheckActivate = (
       }
       dispatch(show('Ваш аккаунт не подтвержден!', 'warning'));
     })
-    .catch(err => {
+    .catch(() => {
       dispatch(show('Ошибка в подтверждении аккаунта!', 'warning'));
     });
 };

@@ -35,7 +35,7 @@ export const Header: React.FC<HeaderProps> = ({}) => {
     <Box
       w="full"
       borderBottomWidth={1}
-      boxShadow="lg"
+      boxShadow="md"
       position="fixed"
       zIndex="2"
     >
@@ -90,9 +90,6 @@ export const Header: React.FC<HeaderProps> = ({}) => {
           >
             {userName && (
               <Flex>
-                <Box mr="1">
-                  <Image src="/man.svg" alt="Russia" width={25} height={25} />
-                </Box>
                 <Heading size="md" mr="5">
                   {userName}
                 </Heading>
@@ -139,11 +136,11 @@ export const Header: React.FC<HeaderProps> = ({}) => {
                       {userName}
                     </Heading>
                   </Flex>
-                  <Heading size="md">|</Heading>
+                  <Heading size="md" mr="5">
+                    |
+                  </Heading>
                   <ChakraLink onClick={logoutHandler}>
-                    <Heading size="md" mx="5">
-                      {t('common:log-out')}
-                    </Heading>
+                    <Heading size="md">{t('common:log-out')}</Heading>
                   </ChakraLink>
                 </Flex>
               ) : (

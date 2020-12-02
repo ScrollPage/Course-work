@@ -10,6 +10,7 @@ import {
   Button,
   Container,
   useDisclosure,
+  Text,
 } from '@chakra-ui/react';
 import useTranslation from 'next-translate/useTranslation';
 import { useState } from 'react';
@@ -50,8 +51,6 @@ const Data = ({}: DataProps) => {
 
   const { data, size, setSize, error } = useSWRInfinite<IDetector[]>(getKey);
 
-  if (error) return <Box children="error" />;
-
   const sizeHandler = () => {
     if (size < maxSize) {
       setSize(size + 1);
@@ -71,7 +70,13 @@ const Data = ({}: DataProps) => {
           <Box my="10">
             <Container maxW="lg" height="full">
               <Flex flexWrap="wrap" justifyContent="center">
+                {error && (
+                  <Text color="red">
+                    Ошибка вывода датчиков! Попробуйте снова.
+                  </Text>
+                )}
                 {!data && renderSceletons()}
+                {data?.[0]?.length === 0 && <Text>У вас нет датчиков</Text>}
                 {data && renderDetectors(data, onOpenHanlder)}
               </Flex>
             </Container>
@@ -81,7 +86,7 @@ const Data = ({}: DataProps) => {
               w="200px"
               onClick={sizeHandler}
               colorScheme="purple"
-              disabled={size >= maxSize}
+              disabled={size >= maxSize || data?.[0]?.length === 0}
             >
               {t('data:load-more')}
             </Button>

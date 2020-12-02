@@ -34,7 +34,7 @@ export const MyDrawer = () => {
 
   return (
     <>
-      <Box ref={btnRef} onClick={onOpen}>
+      <Box ref={btnRef} onClick={onOpen} cursor="pointer">
         <Image src="/list.svg" alt="menu" width={25} height={25} />
       </Box>
       <Drawer

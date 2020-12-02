@@ -38,7 +38,6 @@ export const LoginForm = () => {
         onSubmit={async (values, { setSubmitting, resetForm }) => {
           setSubmitting(true);
           await dispatch(authLogin(values.userName, values.password));
-          console.log(values);
           setSubmitting(false);
           resetForm();
         }}

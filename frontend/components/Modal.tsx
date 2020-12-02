@@ -8,8 +8,12 @@ import {
   ModalBody,
   ModalCloseButton,
   Text,
+  Stack,
+  Skeleton,
 } from '@chakra-ui/react';
 import useSWR from 'swr';
+import useTranslation from 'next-translate/useTranslation';
+import { Chart } from './Chart';
 
 interface ModalProps {
   isOpen: boolean;
@@ -18,7 +22,8 @@ interface ModalProps {
 }
 
 export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, id }) => {
-  const { data, error } = useSWR(`/api/setector/${id}/`);
+  const { t } = useTranslation();
+  const { data, error } = useSWR(id ? `/api/detector/${id}/` : null);
 
   if (error) {
     return <Text>Error</Text>;
@@ -28,10 +33,20 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, id }) => {
     <ChakraModal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Detecotor info</ModalHeader>
+        <ModalHeader>{t('data:detecotor-info')}</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <Text>{data && JSON.stringify(data, null, 2)}</Text>
+          {!data && (
+            <Stack>
+              {Array(7)
+                .fill('')
+                .map((_, index) => (
+                  <Skeleton key={`chart__sceleton__${index}`} height="20px" />
+                ))}
+            </Stack>
+          )}
+          {/* <Text>{data && JSON.stringify(data, null, 2)}</Text> */}
+          {data && <Chart data={data} />}
         </ModalBody>
 
         <ModalFooter></ModalFooter>

@@ -32,7 +32,6 @@ export const AddDetectorForm = () => {
         onSubmit={async (values, { setSubmitting, resetForm }) => {
           setSubmitting(true);
           await dispatch(addDetector(values.x, values.y));
-          console.log(values);
           setSubmitting(false);
           resetForm();
         }}

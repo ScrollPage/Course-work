@@ -113,11 +113,20 @@ export const Header: React.FC<HeaderProps> = ({}) => {
                 </ChakraLink>
               </Link>
               {isAuth && (
-                <Link href="/data">
-                  <ChakraLink>
-                    <Heading size="md">{t('common:data')}</Heading>
-                  </ChakraLink>
-                </Link>
+                <>
+                  <Link href="/data">
+                    <ChakraLink>
+                      <Heading size="md" mr="5">
+                        {t('common:data')}
+                      </Heading>
+                    </ChakraLink>
+                  </Link>
+                  <Link href="/add">
+                    <ChakraLink>
+                      <Heading size="md">{t('common:add')}</Heading>
+                    </ChakraLink>
+                  </Link>
+                </>
               )}
             </Flex>
             <Flex>

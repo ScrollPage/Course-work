@@ -57,13 +57,22 @@ export const MyDrawer = () => {
                   </Link>
                 </Box>
                 {isAuth && (
-                  <Box py="3">
-                    <Link href="/data">
-                      <ChakraLink>
-                        <Heading size="md">{t('common:data')}</Heading>
-                      </ChakraLink>
-                    </Link>
-                  </Box>
+                  <>
+                    <Box py="3">
+                      <Link href="/data">
+                        <ChakraLink>
+                          <Heading size="md">{t('common:data')}</Heading>
+                        </ChakraLink>
+                      </Link>
+                    </Box>
+                    <Box py="3">
+                      <Link href="/add">
+                        <ChakraLink>
+                          <Heading size="md">{t('common:add')}</Heading>
+                        </ChakraLink>
+                      </Link>
+                    </Box>
+                  </>
                 )}
               </Flex>
             </DrawerBody>

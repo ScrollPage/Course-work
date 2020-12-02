@@ -48,14 +48,14 @@ export const RegisterForm = () => {
           confirmPassword: '',
         }}
         validationSchema={validationSchema}
-        onSubmit={(values, { setSubmitting, resetForm }) => {
+        onSubmit={async (values, { setSubmitting, resetForm }) => {
           setSubmitting(true);
           console.log(values);
-          dispatch(authSignup(values.email, values.userName, values.password));
-          setTimeout(() => {
-            setSubmitting(false);
-            resetForm();
-          }, 1000);
+          await dispatch(
+            authSignup(values.email, values.userName, values.password)
+          );
+          setSubmitting(false);
+          resetForm();
         }}
       >
         {(props: FormikProps<FormValues>) => (

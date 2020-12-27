@@ -32,4 +32,5 @@ class DetectorDataListView(ListAPIView):
     pagination_class = PaginationData
 
     def get_queryset(self):
-        return DetectorData.objects.filter(detector__id=int(self.kwargs['pk']))
+        return DetectorData.objects.filter(detector__id=self.kwargs['pk']) \
+            .order_by('-timestamp')

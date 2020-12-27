@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 
+import numpy as np
 import paho.mqtt.client as mqtt
 
 from .service import get_data
@@ -44,11 +45,21 @@ class DetectorData(models.Model):
     lightning = models.DecimalField('Освещенность', max_digits=4, decimal_places=2)
     pH = models.DecimalField('Кислотность', max_digits=4, decimal_places=2)
     timestamp = models.DateTimeField('Дата сбора данных', auto_now_add=True)
-    anomaly = models.BooleanField('Аномалия', default=False)
 
     def __str__(self):
-        return f'{self.anomaly}'
+        return f'{self.id}'
 
     class Meta:
         verbose_name = 'Даные датчика'
         verbose_name_plural = 'Даные датчиков'
+
+    def get_all_params(self):
+        return np.array(list(map(float, [self.temp, self.Co2, self.humidity, self.lightning, self.pH])))
+
+    @classmethod
+    def get_arr_data(cls):
+        res = []
+        for data in cls.objects.all():
+                res.append(data.get_all_params())
+        
+        return np.array(res)

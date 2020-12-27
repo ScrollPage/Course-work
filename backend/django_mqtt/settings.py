@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'silk',
 
+    'anomaly',
     'detector',
 ]
 
@@ -98,7 +99,7 @@ WSGI_APPLICATION = 'django_mqtt.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'CourseWork',
+        'NAME': 'coursework',
         'USER': 'postgres',
         'PASSWORD': 'pass',
         'HOST': '127.0.0.1',
@@ -132,7 +133,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
-    )
+    ),
 }
 
 

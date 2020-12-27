@@ -5,39 +5,33 @@ import { MyField } from './MyField';
 import { object, string } from 'yup';
 import useTranslation from 'next-translate/useTranslation';
 import { useDispatch } from 'react-redux';
-import { authLogin } from '@/store/actions/auth';
+import { addDetector } from '@/store/actions/detector';
 
 interface FormValues {
-  userName: string;
-  password: string;
+  x: string;
+  y: string;
 }
 
-export const LoginForm = () => {
+export const AddDetectorForm = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
   const validationSchema = object().shape({
-    userName: string().required(t('login:enter-your-username')),
-    password: string()
-      .matches(
-        // @ts-ignore: Unreachable code error
-        '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})',
-        t('login:very-easy-password')
-      )
-      .required(t('login:enter-your-password')),
+    x: string().required(t('add:enter-x')),
+    y: string().required(t('add:enter-y')),
   });
 
   return (
     <Box width="full">
       <Formik
         initialValues={{
-          userName: '',
-          password: '',
+          x: '',
+          y: '',
         }}
         validationSchema={validationSchema}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
           setSubmitting(true);
-          await dispatch(authLogin(values.userName, values.password));
+          await dispatch(addDetector(values.x, values.y));
           setSubmitting(false);
           resetForm();
         }}
@@ -46,17 +40,17 @@ export const LoginForm = () => {
           <Form>
             <MyField
               size="lg"
-              label={t('login:username')}
-              name="userName"
+              label={t('add:x')}
+              name="x"
               type="text"
-              placeholder={t('login:enter-your-username')}
+              placeholder={t('add:enter-x')}
             />
             <MyField
               size="lg"
-              label={t('login:password')}
-              name="password"
-              type="password"
-              placeholder={t('login:enter-your-password')}
+              label={t('add:y')}
+              name="y"
+              type="text"
+              placeholder={t('add:enter-y')}
             />
             <Button
               type="submit"
@@ -65,7 +59,7 @@ export const LoginForm = () => {
               isLoading={props.isSubmitting}
               colorScheme="purple"
             >
-              {t('login:submit')}
+              {t('add:submit')}
             </Button>
           </Form>
         )}

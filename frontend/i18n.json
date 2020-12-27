@@ -10,6 +10,7 @@
     "/404": ["error"],
     "/login": ["login"],
     "/register": ["register"],
-    "/data": ["data"]
+    "/data": ["data"],
+    "/add": ["add"]
   }
 }

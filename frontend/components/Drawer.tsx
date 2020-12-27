@@ -34,7 +34,7 @@ export const MyDrawer = () => {
 
   return (
     <>
-      <Box ref={btnRef} onClick={onOpen}>
+      <Box ref={btnRef} onClick={onOpen} cursor="pointer">
         <Image src="/list.svg" alt="menu" width={25} height={25} />
       </Box>
       <Drawer
@@ -57,13 +57,22 @@ export const MyDrawer = () => {
                   </Link>
                 </Box>
                 {isAuth && (
-                  <Box py="3">
-                    <Link href="/data">
-                      <ChakraLink>
-                        <Heading size="md">{t('common:data')}</Heading>
-                      </ChakraLink>
-                    </Link>
-                  </Box>
+                  <>
+                    <Box py="3">
+                      <Link href="/data">
+                        <ChakraLink>
+                          <Heading size="md">{t('common:data')}</Heading>
+                        </ChakraLink>
+                      </Link>
+                    </Box>
+                    <Box py="3">
+                      <Link href="/add">
+                        <ChakraLink>
+                          <Heading size="md">{t('common:add')}</Heading>
+                        </ChakraLink>
+                      </Link>
+                    </Box>
+                  </>
                 )}
               </Flex>
             </DrawerBody>

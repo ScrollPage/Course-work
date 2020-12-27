@@ -1,6 +1,5 @@
 import { Layout } from '@/components/Layout';
 import { Flex, Heading } from '@chakra-ui/react';
-import { GetServerSideProps } from 'next';
 import useTranslation from 'next-translate/useTranslation';
 
 interface IndexProps {}
@@ -17,11 +16,3 @@ const Index = ({}: IndexProps) => {
 };
 
 export default Index;
-
-export const getServerSideProps: GetServerSideProps<IndexProps> = async (
-  ctx
-) => {
-  return {
-    props: {},
-  };
-};

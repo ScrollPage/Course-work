@@ -10,10 +10,7 @@ import {
   Alert as ChackraAlert,
   AlertIcon,
   AlertTitle,
-  AlertDescription,
   Box,
-  Text,
-  Button,
   CloseButton,
 } from '@chakra-ui/react';
 

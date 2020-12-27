@@ -3,7 +3,6 @@ import { LoginForm } from '../components/LoginForm';
 import Link from 'next/link';
 import { Layout } from '@/components/Layout';
 import useTranslation from 'next-translate/useTranslation';
-import { GetServerSideProps } from 'next';
 
 interface LoginProps {}
 
@@ -45,11 +44,3 @@ const Login = ({}: LoginProps) => {
 };
 
 export default Login;
-
-export const getServerSideProps: GetServerSideProps<LoginProps> = async (
-  ctx
-) => {
-  return {
-    props: {},
-  };
-};

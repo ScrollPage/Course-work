@@ -4,7 +4,7 @@ import { Header } from './Header';
 import { Container as ChakraContainer } from '@chakra-ui/react';
 
 interface LayoutProps {
-  children: JSX.Element;
+  children: React.ReactNode;
 }
 
 export const Layout: React.FC<LayoutProps> = ({ children }) => {

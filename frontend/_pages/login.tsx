@@ -3,6 +3,8 @@ import { LoginForm } from '../components/LoginForm';
 import Link from 'next/link';
 import { Layout } from '@/components/Layout';
 import useTranslation from 'next-translate/useTranslation';
+import { ensureRedirectToData } from '@/utils/ensureAuth';
+import { GetServerSideProps } from 'next';
 
 interface LoginProps {}
 
@@ -44,3 +46,10 @@ const Login = ({}: LoginProps) => {
 };
 
 export default Login;
+
+export const getServerSideProps: GetServerSideProps<{}> = async (ctx) => {
+  ensureRedirectToData(ctx);
+  return {
+    props: {},
+  };
+};

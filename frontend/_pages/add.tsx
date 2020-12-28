@@ -1,6 +1,8 @@
 import { AddDetectorForm } from '@/components/AddDetectorForm';
 import { Layout } from '@/components/Layout';
+import { ensureAuth } from '@/utils/ensureAuth';
 import { Flex, Heading, Box } from '@chakra-ui/react';
+import { GetServerSideProps } from 'next';
 import useTranslation from 'next-translate/useTranslation';
 
 interface AddProps {}
@@ -35,3 +37,10 @@ const Add = ({}: AddProps) => {
 };
 
 export default Add;
+
+export const getServerSideProps: GetServerSideProps<{}> = async (ctx) => {
+  ensureAuth(ctx);
+  return {
+    props: {},
+  };
+};

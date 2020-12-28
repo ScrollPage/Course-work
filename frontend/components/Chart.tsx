@@ -8,6 +8,8 @@ import {
   MenuItem,
   Box,
   Button,
+  Flex,
+  Text,
 } from '@chakra-ui/react';
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import useTranslation from 'next-translate/useTranslation';
@@ -19,7 +21,7 @@ export const Chart: React.FC<{ data: IDetectorInfo[] }> = ({ data }) => {
 
   return (
     <>
-      <Box>
+      <Flex justifyContent="space-between" alignItems="center">
         <Menu>
           <MenuButton
             as={Button}
@@ -42,7 +44,22 @@ export const Chart: React.FC<{ data: IDetectorInfo[] }> = ({ data }) => {
             <MenuItem onClick={() => setParam('pH')}>{t(`data:pH`)}</MenuItem>
           </MenuList>
         </Menu>
-      </Box>
+        {/* <Flex alignItems="center">
+          Аномалии:
+          <Flex
+            marginLeft="10px"
+            bg="tomato"
+            height="20px"
+            width="20px"
+            borderRadius="50%"
+            justifyContent="center"
+            alignItems="center"
+            color="#FFFFFF"
+          >
+            <Text>!</Text>
+          </Flex>
+        </Flex> */}
+      </Flex>
       <Box>
         <Line
           data={{
@@ -57,6 +74,15 @@ export const Chart: React.FC<{ data: IDetectorInfo[] }> = ({ data }) => {
                 })),
                 borderColor: '#805ad5',
                 backgroundColor: 'white',
+                // pointBorderColor: '#E86900',
+                // pointBackgroundColor: '#fff',
+                // pointBorderWidth: 1,
+                // pointHoverRadius: 5,
+                // pointHoverBackgroundColor: '#E86900',
+                // pointHoverBorderColor: 'rgba(220,220,220,1)',
+                // pointHoverBorderWidth: 2,
+                // pointRadius: 4,
+                // pointHitRadius: 10,
               },
             ],
           }}

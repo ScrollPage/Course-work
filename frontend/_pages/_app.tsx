@@ -29,7 +29,6 @@ Router.events.on('routeChangeError', () => NProgress.done());
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <>
-      {/* <style dangerouslySetInnerHTML={{ __html: stylesheet }} /> */}
       <style dangerouslySetInnerHTML={{ __html: nprogress }} />
       <DefaultSeo {...SEO} />
       <Head>
@@ -42,9 +41,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <GlobalStyle />
         <SWRConfig
           value={{
-            // revalidateOnMount: true,
             revalidateOnFocus: false,
-            // dedupingInterval: 5000,
             fetcher: (url: string) =>
               axios({
                 url: url,

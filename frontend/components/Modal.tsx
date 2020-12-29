@@ -45,7 +45,6 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, id }) => {
                 ))}
             </Stack>
           )}
-          {/* <Text>{data && JSON.stringify(data, null, 2)}</Text> */}
           {data && <Chart data={data} />}
         </ModalBody>
 

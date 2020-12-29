@@ -11,7 +11,7 @@ export const authSignup = (
   password: string,
 ): ThunkType => async dispatch => {
   await instanceWithOutHeaders
-    .post('/auth/users/ ', {
+    .post('/auth/users/', {
       email,
       username: userName,
       password,

@@ -4,7 +4,7 @@ from detector.models import DetectorData
 from .service import create_detection_model, create_anomaly_items
 
 class Command(BaseCommand):
-    help = 'Publishes a messages to the main chanell and creates a ano,y detection model'
+    help = 'Creates an anomaly detection model and anomaly items for each DetectorData model'
 
     def handle(self, *args, **options):
         clf = create_detection_model()

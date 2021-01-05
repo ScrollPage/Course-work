@@ -10,4 +10,9 @@ class AnomalyDetector(models.Model):
 class AnomalyItem(models.Model):
     '''Показатель аномалии'''
     anomaly = models.IntegerField(default=1)
-    data = models.OneToOneField(DetectorData, verbose_name='Датчик', related_name='is_anomaly', on_delete=models.CASCADE)
+    data = models.OneToOneField(
+        DetectorData, 
+        verbose_name='Датчик', 
+        related_name='is_anomaly', 
+        on_delete=models.CASCADE
+    )

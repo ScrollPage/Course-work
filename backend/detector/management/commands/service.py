@@ -8,7 +8,6 @@ from anomaly.models import AnomalyDetector, AnomalyItem
 def create_detection_model():
         clf, fl = AnomalyDetector.objects.get_or_create(id=1)
         if fl:
-                print('adsasd')
                 clf.model = OneClassSVM(gamma='auto')
                 clf.save()
         return clf

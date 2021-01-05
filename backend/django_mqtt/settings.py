@@ -99,7 +99,7 @@ WSGI_APPLICATION = 'django_mqtt.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'coursework',
+        'NAME': 'postgres',
         'USER': 'postgres',
         'PASSWORD': 'pass',
         'HOST': '127.0.0.1',

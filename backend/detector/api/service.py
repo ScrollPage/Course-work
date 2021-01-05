@@ -24,7 +24,6 @@ class ListCreateViewSet(ListModelMixin,
                         GenericViewSet
                     ):
     '''
-    Переопределение определения сериализатора и прав доступа
     Создание и список
     Базовые функции вью-сета
     '''

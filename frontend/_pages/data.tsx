@@ -3,6 +3,7 @@ import { Detector } from '@/components/Detector';
 import { Layout } from '@/components/Layout';
 import { Modal } from '@/components/Modal';
 import { IDetector } from '@/types/detector';
+import { ensureAuth } from '@/utils/ensureAuth';
 import {
   Flex,
   Heading,
@@ -12,6 +13,7 @@ import {
   useDisclosure,
   Text,
 } from '@chakra-ui/react';
+import { GetServerSideProps } from 'next';
 import useTranslation from 'next-translate/useTranslation';
 import { useState } from 'react';
 import { useSWRInfinite } from 'swr';
@@ -99,3 +101,10 @@ const Data = ({}: DataProps) => {
 };
 
 export default Data;
+
+export const getServerSideProps: GetServerSideProps<{}> = async (ctx) => {
+  ensureAuth(ctx);
+  return {
+    props: {},
+  };
+};
